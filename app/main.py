@@ -11,6 +11,19 @@ import plotly.express as px
 import joblib
 import os
 
+@st.cache_data
+def load_historical_chart_data():
+    """Caches the heavy data matrix so recruiters experience instant page loads."""
+    months_axis = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    turbidity_trend = [15.4, 68.2, 79.4, 42.1, 20.5, 12.1, 8.4, 7.2, 6.9, 10.1, 12.8, 24.5]
+    chlorophyll_trend = [0.3, 1.5, 1.9, 0.9, 0.5, 0.3, 0.2, 0.2, 0.1, 0.2, 0.3, 0.6]
+    return pd.DataFrame({
+        "Month": months_axis,
+        "Turbidity (NTU)": turbidity_trend,
+        "Chlorophyll Proxy": chlorophyll_trend
+    })
+
+
 # Configure professional wide layout structure
 st.set_page_config(
     page_title="GBR Catchment Watch",
@@ -66,12 +79,8 @@ with chart_column:
     turbidity_trend = [15.4, 68.2, 79.4, 42.1, 20.5, 12.1, 8.4, 7.2, 6.9, 10.1, 12.8, 24.5]
     chlorophyll_trend = [0.3, 1.5, 1.9, 0.9, 0.5, 0.3, 0.2, 0.2, 0.1, 0.2, 0.3, 0.6]
     
-    df_metrics = pd.DataFrame({
-        "Month": months_axis,
-        "Turbidity (NTU)": turbidity_trend,
-        "Chlorophyll Proxy": chlorophyll_trend
-    })
-    
+    df_metrics = load_historical_chart_data()
+
     fig = px.line(df_metrics, x="Month", y=["Turbidity (NTU)", "Chlorophyll Proxy"],
                   title="Annual Outflow Monitoring (Burdekin Drainage System)",
                   template="plotly_dark", markers=True)
