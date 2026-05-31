@@ -1,0 +1,21 @@
+# Python environment caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Streamlit internal state files
+.streamlit/
+=======
+
+# Machine Learning Serialization large binaries (Optional)
+# Keep this commented out if you WANT to host your model file on GitHub,
+# but remove the '#' if your model grows past 100MB to prevent Git upload limits.
+# data/processed/*.pkl
+
+# Operating System temporary files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
